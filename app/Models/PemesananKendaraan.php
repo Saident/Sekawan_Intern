@@ -13,7 +13,8 @@ class PemesananKendaraan extends Model
         'admin_id',
         'driver_id',
         'kendaraan_id',
-        'tambang_id'
+        'tambang_id',
+        'user_id',
     ];
 
     /**
@@ -39,5 +40,10 @@ class PemesananKendaraan extends Model
     public function tambang(): HasOne
     {
         return $this->hasOne(tambang::class);
+    }
+
+    public function user(): HasOne
+    {
+        return $this->hasOne(user::class);
     }
 }

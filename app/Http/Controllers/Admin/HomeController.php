@@ -2,11 +2,15 @@
 
 namespace App\Http\Controllers\Admin;
 
+use PhpOffice\PhpSpreadsheet\Spreadsheet;
+use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
+
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 use App\Models\Admin;
+use App\Models\User;
 use App\Models\Kendaraan;
 use App\Models\Driver;
 use App\Models\Tambang;
@@ -19,7 +23,7 @@ class HomeController extends Controller
     {
         $kendaraan = Kendaraan::all()->where('status', 'Tersedia');
         $driver = Driver::all();
-        $tambang = Tambang::all();
+        $user = User::all();
         $admin_id = Auth::id();
 
         $orderData = Log::select(\DB::raw("COUNT(*) as count"))
@@ -30,13 +34,33 @@ class HomeController extends Controller
         return view("admin.index", [
             "kendaraans" => $kendaraan,
             "drivers" => $driver,
-            "tambangs" => $tambang,
+            "users" => $user,
             "admin_id" => $admin_id,
             "orderData" => $orderData,
         ]);
     }
 
-    public function passData(){}
+    public function exportData(){
+        $data = Log::all();
+    
+        $spreadsheet = new Spreadsheet();
+        $sheet = $spreadsheet->getActiveSheet();
+
+        foreach ($data as $rowIndex => $row) {
+            $attributes = $row->getAttributes();
+            $keys = array_keys($attributes);
+            for ($i = 0; $i < count($keys); $i++) {
+                $cellValue = $attributes[$keys[$i]];
+                $sheet->setCellValueByColumnAndRow($i + 1, $rowIndex + 1, $cellValue);
+            }
+        }
+
+        $writer = new Xlsx($spreadsheet);
+        $writer->save('dataExport.xlsx');
+    
+        return redirect()->action([\App\Http\Controllers\Admin\HomeController::class, 'index']);
+    }
+    
 
     public function profile()
     {

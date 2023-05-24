@@ -17,12 +17,14 @@ return new class extends Migration
             $table->unsignedBigInteger('driver_id');
             $table->unsignedBigInteger('kendaraan_id');
             $table->unsignedBigInteger('admin_id');
+            $table->unsignedBigInteger('user_id');
             $table->unsignedBigInteger('tambang_id');
 
             //FK
             $table->foreign('driver_id')->references('id')->on('drivers');
             $table->foreign('kendaraan_id')->references('id')->on('kendaraans');
             $table->foreign('admin_id')->references('id')->on('admins');
+            $table->foreign('user_id')->references('id')->on('users');
             $table->foreign('tambang_id')->references('id')->on('tambangs');
             $table->timestamps();
         });

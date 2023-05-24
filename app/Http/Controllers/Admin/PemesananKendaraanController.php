@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Auth;
 use App\Models\Admin;
 use App\Models\Kendaraan;
 use App\Models\Driver;
+use App\Models\User;
 use App\Models\Tambang;
 use App\Models\PemesananKendaraan;
 use App\Models\Log;
@@ -22,7 +23,7 @@ class PemesananKendaraanController extends Controller
         $admin = $request->admin_id;
         $driver = $request->driver_id;
         $kendaraan = $request->kendaraans_id;
-        $tambang = $request->tambang_id;
+        $user_id = $request->user_id;
 
         Kendaraan::where('id', $kendaraan)->update([
             'jadwal_service' => now()->addMonths(2),
@@ -31,21 +32,26 @@ class PemesananKendaraanController extends Controller
             'bbm' => +1300
         ]);
 
+        $tambang = Tambang::where('user_id', $user_id)->first();
+
         $pemesanan = PemesananKendaraan::create([
             'admin_id' => $admin,
             'driver_id' => $driver,
             'kendaraan_id' => $kendaraan,
-            'tambang_id' => $tambang,
+            'tambang_id' => $tambang->id,
+            'user_id' => $user_id,
         ]);
 
         $kendaraans = Kendaraan::where('id', $kendaraan)->first();
-        $lokasi = Tambang::where('id', $tambang)->first();
+
+        
+        // $lokasi = Tambang::where('id', $tambang->id)->first();
 
         $logData = Log::Create([
             'admin' => Auth::user()->name,
             'kendaraan' => $kendaraans->nama,
             'kendaraan_id' => $kendaraans->id,
-            'lokasi' => $lokasi->lokasi,
+            'lokasi' => $tambang->lokasi,
             'pemesanan_id' => $pemesanan->id,
             'tanggal_pemesanan' => now(),
         ]);

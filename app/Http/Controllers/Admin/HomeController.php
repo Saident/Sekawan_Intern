@@ -2,6 +2,9 @@
 
 namespace App\Http\Controllers\Admin;
 
+use PhpOffice\PhpSpreadsheet\Spreadsheet;
+use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
+
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -37,7 +40,27 @@ class HomeController extends Controller
         ]);
     }
 
-    public function passData(){}
+    public function exportData(){
+        $data = Log::all();
+    
+        $spreadsheet = new Spreadsheet();
+        $sheet = $spreadsheet->getActiveSheet();
+
+        foreach ($data as $rowIndex => $row) {
+            $attributes = $row->getAttributes();
+            $keys = array_keys($attributes);
+            for ($i = 0; $i < count($keys); $i++) {
+                $cellValue = $attributes[$keys[$i]];
+                $sheet->setCellValueByColumnAndRow($i + 1, $rowIndex + 1, $cellValue);
+            }
+        }
+
+        $writer = new Xlsx($spreadsheet);
+        $writer->save('dataExport.xlsx');
+    
+        return redirect()->action([\App\Http\Controllers\Admin\HomeController::class, 'index']);
+    }
+    
 
     public function profile()
     {

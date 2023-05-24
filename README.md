@@ -59,7 +59,7 @@ Routes awal untuk pihak penyetuju
 
     http://127.0.0.1:8000/login
 
-Routes awal untuk pihak penyetuju
+Routes awal untuk admin
 
     http://127.0.0.1:8000/admin/login
 

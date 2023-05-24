@@ -10,7 +10,7 @@ class PemesananKendaraan extends Model
     use HasFactory;
 
     protected $fillable = [
-        'user_id',
+        'admin_id',
         'driver_id',
         'kendaraan_id'
     ];

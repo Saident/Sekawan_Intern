@@ -41,7 +41,8 @@ Route::prefix('admin')->group(static function () {
         Route::get('/', [\App\Http\Controllers\Admin\HomeController::class, 'index'])->name('admin.index');
         Route::get('profile', [\App\Http\Controllers\Admin\HomeController::class, 'profile'])->middleware('password.confirm.admin')->name('admin.profile');
 
-        Route::post('/pemesanan/', [\App\Http\Controllers\Admin\PemesananKendaraanController::class, 'pesanKendaraan'])->name('admin.pesan');
+        Route::post('/pemesanan', [\App\Http\Controllers\Admin\PemesananKendaraanController::class, 'pesanKendaraan'])->name('admin.pesan');
+        Route::post('/export', [\App\Http\Controllers\Admin\HomeController::class, 'exportData'])->name('admin.export');
 
         /**
          * +admin/home -> grafik penggunaan

@@ -45,24 +45,35 @@ Framework :
 ## Account
 
 User
-    - User1 : user1@email.com
-    - User2 : user2@email.com
+- User1 : user1@email.com
+- User2 : user2@email.com
 
 Admin
-    - Admin1 : admin1@email.com
-    - Admin2 : admin2@email.com
+- Admin1 : admin1@email.com
+- Admin2 : admin2@email.com
 
 Default password : 12345678
 
 ## Panduan
-- Routes awal untuk pihak   : http://127.0.0.1:8000/login
-- Routes awal untuk admin   : http://127.0.0.1:8000/admin/login
+Routes awal untuk pihak penyetuju
 
-- Admin dashboard untuk pemesanan kendaraan dan export data : http://127.0.0.1:8000/admin/
-    Kendaraan yang telah dipesan akan masuk ke request pihak yang telah ditentukan.
+    http://127.0.0.1:8000/login
 
-- Pihak penyetuju dashboard : http://127.0.0.1:8000/dashboard dapat diakses setelah login
-    Pada dashboard pihak penyetuju dapat melakukan konfirmasi, setuju, atau penolakan terhadap order kendaraan
+Routes awal untuk pihak penyetuju
+
+    http://127.0.0.1:8000/admin/login
+
+Admin dashboard untuk pemesanan kendaraan dan export data dapat diakses pada
+
+    http://127.0.0.1:8000/admin/
+
+Kendaraan yang telah dipesan akan masuk ke request pihak yang telah ditentukan.
+
+Pihak penyetuju dashboard dapat diakses pada : 
+
+    http://127.0.0.1:8000/dashboard dapat diakses setelah login
+
+Pada dashboard pihak penyetuju dapat melakukan konfirmasi, setuju, atau penolakan terhadap order kendaraan
 
 ## Physical Data Model
 

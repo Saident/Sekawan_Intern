@@ -40,6 +40,14 @@ Route::prefix('admin')->group(static function () {
         // General routes
         Route::get('/', [\App\Http\Controllers\Admin\HomeController::class, 'index'])->name('admin.index');
         Route::get('profile', [\App\Http\Controllers\Admin\HomeController::class, 'profile'])->middleware('password.confirm.admin')->name('admin.profile');
+
+        Route::post('/pemesanan/{admin_id}/{kendaraan_id}/{driver_id}', [\App\Http\Controllers\Admin\PemesananKendaraanController::class, 'pesanKendaraan'])->name('admin.pesan');
+
+        /**
+         * +admin/home -> grafik penggunaan
+         * /admin/export -> export excel
+         * /admin/pemesanan/{admin_id}/{kendaraan_id}/{driver_id}
+         */
     });
 });
 

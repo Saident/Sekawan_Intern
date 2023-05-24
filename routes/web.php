@@ -13,8 +13,9 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', [\App\Http\Controllers\SiteController::class, 'index'])
-    ->name('index');
+Route::get('/', function () {
+    return redirect()->action([\App\Http\Controllers\SiteController::class, 'dashboard']);
+});
 
 require __DIR__.'/auth.php';
 
@@ -24,6 +25,8 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::post('confirm/{id}', [\App\Http\Controllers\AcceptController::class, 'konfirmasiPesanan'])->name('confirm');
     Route::post('cancel/{id}', [\App\Http\Controllers\AcceptController::class, 'tolakPesanan'])->name('cancel');
     Route::post('accept/{id}', [\App\Http\Controllers\AcceptController::class, 'setujuiPesanan'])->name('accept');
+    Route::post('return/{id}', [\App\Http\Controllers\AcceptController::class, 'kembaliPesanan'])->name('return');
+
 
     Route::get('profile', [\App\Http\Controllers\SiteController::class, 'profile'])
         ->middleware('password.confirm')

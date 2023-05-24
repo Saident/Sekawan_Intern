@@ -3,24 +3,28 @@
 namespace App\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
+use App\Http\Controllers\Admin\LogController;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 
 use App\Models\Admin;
 use App\Models\Kendaraan;
 use App\Models\Driver;
+use App\Models\Tambang;
 use App\Models\PemesananKendaraan;
+use App\Models\Log;
 
 class PemesananKendaraanController extends Controller
 {
     public function pesanKendaraan(Request $request){
         //TODO : add filter telah dipesan
 
-        $admin_id = $request->admin_id;
+        $admin = $request->admin_id;
         $driver = $request->driver_id;
-        $kendaraan = $request->kendaraan_id;
+        $kendaraan = $request->kendaraans_id;
+        $tambang = $request->tambang_id;
 
-        $kendaraan = Kendaraan::where('id', $kendaraan)->update([
+        Kendaraan::where('id', $kendaraan)->update([
             'jadwal_service' => now()->addMonths(2),
             'riwayat_pemakaian' => now(),
             'status' => 'Dipesan',
@@ -28,15 +32,24 @@ class PemesananKendaraanController extends Controller
         ]);
 
         $pemesanan = PemesananKendaraan::create([
-            'admin_id' => $admin_id,
+            'admin_id' => $admin,
             'driver_id' => $driver,
             'kendaraan_id' => $kendaraan,
+            'tambang_id' => $tambang,
         ]);
 
-        return response()->json([
-            'status' => 'success',
-            'message' => "Pemesanan has been added.",
-            'pemesanan' => $pemesanan,
-        ], 200);
+        $kendaraans = Kendaraan::where('id', $kendaraan)->first();
+        $lokasi = Tambang::where('id', $tambang)->first();
+
+        $logData = Log::Create([
+            'admin' => Auth::user()->name,
+            'kendaraan' => $kendaraans->nama,
+            'kendaraan_id' => $kendaraans->id,
+            'lokasi' => $lokasi->lokasi,
+            'pemesanan_id' => $pemesanan->id,
+            'tanggal_pemesanan' => now(),
+        ]);
+
+        return redirect()->action([\App\Http\Controllers\Admin\HomeController::class, 'index']);
     }
 }

@@ -3,9 +3,12 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+
 use App\Models\Admin;
 use App\Models\Kendaraan;
 use App\Models\Driver;
+use App\Models\Tambang;
 use App\Models\PemesananKendaraan;
 
 class SiteController extends Controller
@@ -16,36 +19,31 @@ class SiteController extends Controller
     }
 
     public function dashboard()
-    {
-        $pesanan = PemesananKendaraan::all();
-        $drivers = [];
-        $kendaraans = [];
-        $counter = -1;
+{
+    $user_id = Auth::id();
+    $tambang = Tambang::where('user_id', $user_id)->first();
+    $pesanan = $tambang->pemesananKendaraans;
 
-        if ($pesanan->isEmpty()) {
-            return view('dashboard', [
-                "pesanan" => $pesanan,
-                "kendaraan" => '',
-                "kendaraan_id" => '',
-                "status" => '',
-                "driver" => '',
-            ]);
-        } else {
-            foreach ($pesanan as $pemesanan) {
-                $drivers[] = Driver::where('id', 'like', $pemesanan->driver_id)->first();
-                $kendaraans[] = Kendaraan::where('id', 'like', $pemesanan->kendaraan_id)->first();
-                $counter++;
-            }
-            
-            return view('dashboard', [
-                "pesanan" => $pesanan,
-                "kendaraan" => $kendaraans[$counter]->jenis,
-                "kendaraan_id" => $kendaraans[$counter]->id,
-                "status" => $kendaraans[$counter]->status,
-                "driver" => $drivers[$counter]->nama,
-            ]);
-        }
+    if ($pesanan->isEmpty()) {
+        return view('dashboard', [
+            "pesanan" => $pesanan,
+            "kendaraan" => '',
+            "kendaraan_id" => '',
+            "status" => '',
+            "driver" => '',
+        ]);
+    } else {
+        $lastPesanan = $pesanan->last();
+        return view('dashboard', [
+            "pesanan" => $pesanan,
+            "kendaraan" => $lastPesanan->kendaraan->nama,
+            "kendaraan_id" => $lastPesanan->kendaraan->id,
+            "status" => $lastPesanan->kendaraan->status,
+            "driver" => $lastPesanan->driver->nama,
+        ]);
     }
+}
+
 
 
     public function profile()

@@ -23,24 +23,24 @@
                         </div>
                     </div>
                     @else
-                        @foreach ($pesanan as $pesanan)
+                        @foreach ($pesanan as $item)
                         <div class="mt-8 bg-white dark:bg-gray-900 overflow-hidden shadow sm:rounded-lg">
                             <div class="grid grid-cols-1 md:grid-cols-2">
                                 <div class="p-6">
                                     <div class="flex items-center">
                                             <div class="ml-4 text-md font-semibold">
-                                                <p class="text-gray-900 dark:text-white">Jenis Kendaraan : {{ $kendaraan }}</p>
-                                                <p class="text-gray-900 dark:text-white">Status : {{ $status }}</p>
+                                                <p class="text-gray-900 dark:text-white">Nama Kendaraan : {{ $item->kendaraan->nama }}</p>
+                                                <p class="text-gray-900 dark:text-white">Status : {{ $item->kendaraan->status }}</p>
                                             </div>
                                     </div>
         
                                     <div class="ml-4">
                                         <div class="mt-2 text-gray-600 dark:text-gray-400 text-sm">
-                                            Driver : {{ $driver }}
+                                            Driver : {{ $item->driver->nama }}
                                         </div>
                                     </div>
                                 </div>
-                                @if (($status=='Dipesan'))
+                                @if (($item->kendaraan->status=='Dipesan'))
                                 <div class="flex items-center p-6 justify-end">
                                     <form method="POST" action="{{ route('confirm', ['id' => $kendaraan_id])}}">
                                         @csrf
@@ -57,7 +57,7 @@
                                     </form>
     
                                 </div>
-                                @elseif (($status=='Diproses'))
+                                @elseif (($item->kendaraan->status=='Diproses'))
                                 <div class="flex items-center p-6 justify-end">
     
                                     <form method="POST" action="{{ route('accept', ['id' => $kendaraan_id])}}">
@@ -78,7 +78,7 @@
                                 @else
                                 <div class="flex items-center p-6 justify-end text-white">
                                     Telah Dipesan
-                                    <form method="POST" action="{{ route('cancel', ['id' => $kendaraan_id])}}">
+                                    <form method="POST" action="{{ route('return', ['id' => $kendaraan_id])}}">
                                         @csrf
                                         <x-button class="ml-3">
                                             {{ __('Return Kendaraan') }}

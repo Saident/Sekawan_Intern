@@ -13,12 +13,13 @@ return new class extends Migration
     {
         Schema::create('kendaraans', function (Blueprint $table) {
             $table->id();
+            $table->string('nama');
             $table->string('jenis');
             $table->string('status');
             $table->string('kepemilikan');
             $table->integer('bbm')->nullable();
-            $table->time('jadwal_service')->nullable();
-            $table->time('riwayat_pemakaian')->nullable();
+            $table->dateTime('jadwal_service')->nullable();
+            $table->dateTime('riwayat_pemakaian')->nullable();
 
             $table->unsignedBigInteger('tambang_id');
 

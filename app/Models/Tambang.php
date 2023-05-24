@@ -33,4 +33,9 @@ class Tambang extends Model
     {
         return $this->hasMany(kendaraan::class);
     }
+
+    public function pemesananKendaraans()
+    {
+        return $this->hasMany(PemesananKendaraan::class);
+    }
 }

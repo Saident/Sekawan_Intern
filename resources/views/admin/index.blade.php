@@ -28,7 +28,7 @@
                             </select>
 
                         <label class="ml-4" for="Driver">Pilih Pihak:</label>
-                            <select class="ml-4" name="tambang_id" id="tambang_id">
+                            <select class="ml-4" name="user_id" id="user_id">
                                 @foreach ($users as $item)
                                     <option value={{$item->id}}>{{$item->name}}</option>
                                 @endforeach
@@ -38,6 +38,11 @@
 
                     <h1>Charts Order</h1>
                     <div id="container"></div>
+
+                    <form class="flex items-center justify-center" method="POST" action="{{ route('admin.export') }}">
+                        @csrf
+                        <x-button class="ml-4 text-center" type="submit">Export Data</x-button>
+                    </form>
                 </div>
             </div>
         </div>
@@ -52,7 +57,7 @@
             text: 'New Order Growth, 2023'
         },
         subtitle: {
-            text: 'Source: positronx.io'
+            text: ''
         },
         xAxis: {
             categories: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September',

@@ -17,7 +17,9 @@ class KendaraanFactory extends Factory
     public function definition()
     {
         return [
-            //
+            'status' => 'Tersedia',
+            'kepemilikan' => 'Milik Perusahaan',
+            'tambang_id' => '1',
         ];
     }
 }

@@ -32,23 +32,26 @@ class PemesananKendaraanController extends Controller
             'bbm' => +1300
         ]);
 
+        $tambang = Tambang::where('user_id', $user_id)->first();
+
         $pemesanan = PemesananKendaraan::create([
             'admin_id' => $admin,
             'driver_id' => $driver,
             'kendaraan_id' => $kendaraan,
+            'tambang_id' => $tambang->id,
             'user_id' => $user_id,
         ]);
 
         $kendaraans = Kendaraan::where('id', $kendaraan)->first();
 
-        $tambang = User::where('user_id', $user_id)->first();
-        $lokasi = Tambang::where('id', $tambang->id)->first();
+        
+        // $lokasi = Tambang::where('id', $tambang->id)->first();
 
         $logData = Log::Create([
             'admin' => Auth::user()->name,
             'kendaraan' => $kendaraans->nama,
             'kendaraan_id' => $kendaraans->id,
-            'lokasi' => $lokasi->lokasi,
+            'lokasi' => $tambang->lokasi,
             'pemesanan_id' => $pemesanan->id,
             'tanggal_pemesanan' => now(),
         ]);

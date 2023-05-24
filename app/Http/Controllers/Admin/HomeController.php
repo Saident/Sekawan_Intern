@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 use App\Models\Admin;
+use App\Models\User;
 use App\Models\Kendaraan;
 use App\Models\Driver;
 use App\Models\Tambang;
@@ -19,7 +20,7 @@ class HomeController extends Controller
     {
         $kendaraan = Kendaraan::all()->where('status', 'Tersedia');
         $driver = Driver::all();
-        $tambang = Tambang::all();
+        $user = User::all();
         $admin_id = Auth::id();
 
         $orderData = Log::select(\DB::raw("COUNT(*) as count"))
@@ -30,7 +31,7 @@ class HomeController extends Controller
         return view("admin.index", [
             "kendaraans" => $kendaraan,
             "drivers" => $driver,
-            "tambangs" => $tambang,
+            "users" => $user,
             "admin_id" => $admin_id,
             "orderData" => $orderData,
         ]);

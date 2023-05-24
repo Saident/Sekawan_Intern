@@ -27,10 +27,10 @@
                                 @endforeach
                             </select>
 
-                        <label class="ml-4" for="Driver">Pilih Lokasi:</label>
+                        <label class="ml-4" for="Driver">Pilih Pihak:</label>
                             <select class="ml-4" name="tambang_id" id="tambang_id">
-                                @foreach ($tambangs as $item)
-                                    <option value={{$item->id}}>{{$item->lokasi}}</option>
+                                @foreach ($users as $item)
+                                    <option value={{$item->id}}>{{$item->name}}</option>
                                 @endforeach
                             </select>
                             <x-button type="submit" class="ml-4">Submit</x-button>

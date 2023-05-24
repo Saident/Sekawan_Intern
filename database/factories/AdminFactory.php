@@ -18,9 +18,9 @@ class AdminFactory extends Factory
     public function definition()
     {
         return [
-            'name' => $this->faker->name(),
-            'username' => $this->faker->unique()->userName(),
-            'email' => $this->faker->unique()->safeEmail(),
+            'name' => 'Admin',
+            'username' => 'Admin',
+            'email' => 'admin@email.com',
             'email_verified_at' => now(),
             'password' => '12345678', // password
             'remember_token' => Str::random(10),

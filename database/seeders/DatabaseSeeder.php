@@ -17,16 +17,26 @@ class DatabaseSeeder extends Seeder
          \App\Models\User::factory(1)->create();
          \App\Models\Admin::factory(1)->create();
 
-        // \App\Models\User::factory()->create([
-        //     'name' => 'Test User',
-        //     'email' => 'user@email.com',
-        //     'password' => '12345678',
-        // ]);
+         \App\Models\Tambang::factory()->create([
+            'lokasi' => 'Jakarta',
+            'user_id' => '1',
+        ]);
 
-        // \App\Models\ADmin::factory()->create([
-        //     'name' => 'Test Admin',
-        //     'email' => 'admin@email.com',
-        //     'password' => '12345678,'
-        // ]);
+        \App\Models\Kendaraan::factory()->create([
+            'jenis' => 'Angkutan Barang',
+            'status' => 'Tersedia',
+            'kepemilikan' => 'Milik Perusahaan',
+            'tambang_id' => '1',
+        ]);
+
+        \App\Models\Driver::factory()->create([
+            'nama' => 'Averil Primayuda',
+        ]);
+
+        \App\Models\PemesananKendaraan::factory()->create([
+            'driver_id' => '1',
+            'admin_id' => '1',
+            'kendaraan_id' => '1',
+        ]);
     }
 }

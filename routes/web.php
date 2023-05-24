@@ -19,11 +19,15 @@ Route::get('/', [\App\Http\Controllers\SiteController::class, 'index'])
 require __DIR__.'/auth.php';
 
 Route::middleware(['auth', 'verified'])->group(function () {
-    Route::get('dashboard', function () {
-        return view('dashboard');
-    })->name('dashboard');
+    Route::get('dashboard', [\App\Http\Controllers\SiteController::class, 'dashboard'])->name('dashboard');
 
     Route::get('profile', [\App\Http\Controllers\SiteController::class, 'profile'])
         ->middleware('password.confirm')
         ->name('profile');
+
+    /**
+     * /home -> list request kendaraan
+     * /persetujuan/{status}/{pesanan_id} -> meyimpan ke table kendaraan masukin data dipakai
+     * /konfirmasi
+     */
 });

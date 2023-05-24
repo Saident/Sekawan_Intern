@@ -9,35 +9,30 @@ use Illuminate\Support\Facades\Auth;
 use App\Models\Admin;
 use App\Models\Kendaraan;
 use App\Models\Driver;
+use App\Models\Tambang;
 use App\Models\PemesananKendaraan;
+use App\Models\Log;
 
 class HomeController extends Controller
 {
     public function index()
     {
-        $kendaraan = Kendaraan::all();
+        $kendaraan = Kendaraan::all()->where('status', 'Tersedia');
         $driver = Driver::all();
+        $tambang = Tambang::all();
+        $admin_id = Auth::id();
 
-        $drivers = [];
-        $kendaraans = [];
-
-        $counterk = -1;
-        $counterd = -1;
-
-        foreach ($kendaraan as $kendaraan) {
-            $kendaraans[] = Kendaraan::where('id', 'like', $kendaraan->id)->first();
-            $counterk++;
-        }
-
-        foreach ($driver as $driver) {
-            $drivers[] = Driver::where('id', 'like', $driver->id)->first();
-            $counterd++;
-        }
+        $orderData = Log::select(\DB::raw("COUNT(*) as count"))
+                    ->whereYear('tanggal_pemesanan', date('Y'))
+                    ->groupBy(\DB::raw("Month(tanggal_pemesanan)"))
+                    ->pluck('count');
 
         return view("admin.index", [
-            "kendaraan" => $kendaraans[$counterk],
-            "driver" => $drivers[$counterd],
-            "admin_id" => Auth::user()->id,
+            "kendaraans" => $kendaraan,
+            "drivers" => $driver,
+            "tambangs" => $tambang,
+            "admin_id" => $admin_id,
+            "orderData" => $orderData,
         ]);
     }
 

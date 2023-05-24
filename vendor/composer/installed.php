@@ -3,7 +3,7 @@
         'name' => 'rubensrocha/laravel-breeze-multi-auth-admin',
         'pretty_version' => 'dev-main',
         'version' => 'dev-main',
-        'reference' => '202bab3776076aa1203295f6a39b75fad8fea9b0',
+        'reference' => '89af008d9f4ed94539e0badd9fd13732555b8505',
         'type' => 'project',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
@@ -917,7 +917,7 @@
         'rubensrocha/laravel-breeze-multi-auth-admin' => array(
             'pretty_version' => 'dev-main',
             'version' => 'dev-main',
-            'reference' => '202bab3776076aa1203295f6a39b75fad8fea9b0',
+            'reference' => '89af008d9f4ed94539e0badd9fd13732555b8505',
             'type' => 'project',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),

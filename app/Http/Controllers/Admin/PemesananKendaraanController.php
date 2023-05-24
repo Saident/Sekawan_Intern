@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -14,15 +14,17 @@ use App\Models\PemesananKendaraan;
 class PemesananKendaraanController extends Controller
 {
     public function pesanKendaraan(Request $request){
-        $admin_id = Auth::user()->id;
+        //TODO : add filter telah dipesan
+
+        $admin_id = $request->admin_id;
         $driver = $request->driver_id;
         $kendaraan = $request->kendaraan_id;
 
-        $kendaraans = Kendaraan::where('id', 'like', $kendaraan)->get();
-        $kendaraans->update([
+        $kendaraan = Kendaraan::where('id', $kendaraan)->update([
             'jadwal_service' => now()->addMonths(2),
             'riwayat_pemakaian' => now(),
-            'bbm' => 1300
+            'status' => 'Dipesan',
+            'bbm' => +1300
         ]);
 
         $pemesanan = PemesananKendaraan::create([

@@ -63,13 +63,13 @@ Routes awal untuk admin
 
     http://127.0.0.1:8000/admin/login
 
-Admin dashboard untuk pemesanan kendaraan dan export data dapat diakses pada
+Admin dashboard dapat diakses pada
 
     http://127.0.0.1:8000/admin/
 
-Kendaraan yang telah dipesan akan masuk ke request pihak yang telah ditentukan.
+Admin dashboard dapat digunakan untuk pemesanan kendaraan dan export data. Kendaraan yang telah dipesan akan masuk ke request pihak yang telah ditentukan.
 
-Pihak penyetuju dashboard dapat diakses pada : 
+Pihak penyetuju dashboard dapat diakses pada
 
     http://127.0.0.1:8000/dashboard dapat diakses setelah login
 

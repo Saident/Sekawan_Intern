@@ -30,6 +30,18 @@ Or run migrations with admins/users
 
 Default password for admin and users is "password"
 
+## Account
+
+User
+    - User1 : user1@email.com
+    - User2 : user2@email.com
+
+Admin
+    - Admin1 : admin1@email.com
+    - Admin2 : admin2@email.com
+
+Default password : 12345678
+
 ## License
 
 The Project is software licensed under the [MIT license](https://opensource.org/licenses/MIT).

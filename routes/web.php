@@ -21,10 +21,15 @@ require __DIR__.'/auth.php';
 Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('dashboard', [\App\Http\Controllers\SiteController::class, 'dashboard'])->name('dashboard');
 
+    Route::post('confirm/{id}', [\App\Http\Controllers\AcceptController::class, 'konfirmasiPesanan'])->name('confirm');
+    Route::post('cancel/{id}', [\App\Http\Controllers\AcceptController::class, 'tolakPesanan'])->name('cancel');
+    Route::post('accept/{id}', [\App\Http\Controllers\AcceptController::class, 'setujuiPesanan'])->name('accept');
+
     Route::get('profile', [\App\Http\Controllers\SiteController::class, 'profile'])
         ->middleware('password.confirm')
         ->name('profile');
 
+    
     /**
      * /home -> list request kendaraan
      * /persetujuan/{status}/{pesanan_id} -> meyimpan ke table kendaraan masukin data dipakai

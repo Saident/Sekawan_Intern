@@ -12,7 +12,8 @@ class PemesananKendaraan extends Model
     protected $fillable = [
         'admin_id',
         'driver_id',
-        'kendaraan_id'
+        'kendaraan_id',
+        'tambang_id'
     ];
 
     /**
@@ -25,13 +26,18 @@ class PemesananKendaraan extends Model
         return $this->hasOne(admin::class);
     }
 
-    public function driver(): HasOne
+    public function driver()
     {
-        return $this->hasOne(driver::class);
+        return $this->belongsTo(Driver::class);
     }
 
-    public function kendaraan(): HasOne
+    public function kendaraan()
     {
-        return $this->hasOne(kendaraan::class);
+        return $this->belongsTo(Kendaraan::class);
+    }
+
+    public function tambang(): HasOne
+    {
+        return $this->hasOne(tambang::class);
     }
 }

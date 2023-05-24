@@ -5,11 +5,11 @@ Project ini dibuat untuk menyelesaikan Technical Test dari Sekawan Media.
 
 ## Installation
 
-Clone this repo
+Clone repo berikut
 
     git clone https://github.com/Saident/Sekawan_Intern.git
 
-Create env file and set up your DB connection
+Buat env file dan set up DB connection
 
     cp .env.example .env
 
@@ -21,15 +21,9 @@ Generate key
 
     php artisan key:generate
 
-Run migrations without admins/users
-
-    php artisan migrate
-
-Or run migrations with admins/users
+Run migrations dengan seeder
 
     php artisan migrate --seed
-
-Default password for admin and users is "password"
 
 ## Specification
 

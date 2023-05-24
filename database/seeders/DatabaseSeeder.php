@@ -23,20 +23,27 @@ class DatabaseSeeder extends Seeder
         ]);
 
         \App\Models\Kendaraan::factory()->create([
+            'nama' => 'Truck B234',
             'jenis' => 'Angkutan Barang',
-            'status' => 'Tersedia',
-            'kepemilikan' => 'Milik Perusahaan',
-            'tambang_id' => '1',
+        ]);
+
+        \App\Models\Kendaraan::factory()->create([
+            'nama' => 'Innova A123',
+            'jenis' => 'Angkutan Orang',
+        ]);
+
+        \App\Models\Kendaraan::factory()->create([
+            'nama' => 'Truck C456',
+            'jenis' => 'Angkutan Barang',
+        ]);
+
+        \App\Models\Kendaraan::factory()->create([
+            'nama' => 'Innova D567',
+            'jenis' => 'Angkutan Orang',
         ]);
 
         \App\Models\Driver::factory()->create([
             'nama' => 'Averil Primayuda',
-        ]);
-
-        \App\Models\PemesananKendaraan::factory()->create([
-            'driver_id' => '1',
-            'admin_id' => '1',
-            'kendaraan_id' => '1',
         ]);
     }
 }
